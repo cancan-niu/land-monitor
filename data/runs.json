@@ -3,6 +3,27 @@
   "date": "2026-09-03",
   "newGuaPai": [],
   "newDeals": [],
+  "statusFlip": [
+   {
+    "id": "京土整储挂（兴）工业[2012]004号",
+    "title": "中关村科技园区大兴生物医药产业基地0504-075-2工业项目用地",
+    "loc": "中关村科技园区大兴生物医药产业基地",
+    "use": "工业用地",
+    "status": "已成交",
+    "dealDate": "2012-10-31",
+    "startPrice": "1448",
+    "area": "19935",
+    "pubDate": "2023-03-27",
+    "updated": "2023-03-27",
+    "prevStatus": "已成交"
+   }
+  ],
+  "newYsq": []
+ },
+ {
+  "date": "2026-09-03",
+  "newGuaPai": [],
+  "newDeals": [],
   "newYsq": [],
   "statusFlip": [],
   "baseline": true

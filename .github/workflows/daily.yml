@@ -1,0 +1,40 @@
+name: daily-land-monitor
+on:
+  schedule:
+    - cron: '30 22 * * *'  # 北京时间 06:30
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - name: Set run date
+        id: date
+        run: echo "date=$(TZ=Asia/Shanghai date +%F)" >> "$GITHUB_OUTPUT"
+      - name: Fetch & diff
+        run: node fetch.mjs
+        env:
+          RUN_DATE: ${{ steps.date.outputs.date }}
+      - name: Commit state
+        run: |
+          git config user.name "land-monitor-bot"
+          git config user.email "actions@github.com"
+          git add data site
+          git diff --cached --quiet || git commit -m "monitor: $(TZ=Asia/Shanghai date +%F)"
+          git push
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with: { path: site }
+      - uses: actions/deploy-pages@v4
